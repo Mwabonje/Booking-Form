@@ -17,7 +17,8 @@ export enum SubjectOption {
   GENERAL = "General Information",
   WEDDING = "Wedding Photography",
   PORTRAIT = "Portrait Session",
-  EVENT = "Event Coverage"
+  EVENT = "Event Coverage",
+  DRONE = "Drone Services"
 }
 
 export interface FormErrors {

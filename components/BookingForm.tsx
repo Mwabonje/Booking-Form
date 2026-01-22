@@ -278,7 +278,7 @@ export const BookingForm: React.FC = () => {
                 Type of Shoot <span className="text-red-500 text-xs ml-1">(Required)</span>
               </label>
               <div className="space-y-2">
-                {['Videography', 'Photography', 'Both'].map((option) => (
+                {['Videography', 'Photography', 'Drone Services', 'Both'].map((option) => (
                   <label key={option} className="flex items-center space-x-3 cursor-pointer group">
                     <input
                       type="radio"
