@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -18,8 +19,9 @@
             colors: {
               brand: {
                 blue: '#2563EB',
-                dark: '#111827',
-                gray: '#6B7280',
+                dark: '#242424',
+                surface: '#2a2a2a',
+                gray: '#9ca3af',
                 light: '#F3F4F6'
               }
             },
@@ -41,6 +43,12 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+      
+      /* Invert calendar icon color in dark mode so it appears white */
+      .dark input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+      }
     </style>
   <script type="importmap">
 {
@@ -54,7 +62,7 @@
 }
 </script>
 </head>
-  <body class="bg-white text-gray-900">
+  <body class="bg-white text-gray-900 dark:bg-brand-dark dark:text-gray-100 transition-colors duration-500">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>

@@ -5,7 +5,7 @@ import { Footer } from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-brand-blue selection:text-white">
+    <div className="min-h-screen bg-white dark:bg-brand-dark text-gray-900 dark:text-gray-100 font-sans selection:bg-brand-blue selection:text-white transition-colors duration-500">
       <Hero />
       <main className="container mx-auto">
         <BookingForm />

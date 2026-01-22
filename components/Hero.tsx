@@ -1,9 +1,34 @@
-import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowUpRight, Moon, Sun } from 'lucide-react';
 
 export const Hero: React.FC = () => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    // On mount, check local storage or system preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+      localStorage.theme = 'light';
+    }
+  };
+
   return (
-    <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100 mb-12 relative group">
+    <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100 dark:bg-brand-dark mb-12 relative group transition-colors duration-500">
       <img 
         src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=2000" 
         alt="Classic Camera Mamiya 645" 
@@ -15,8 +40,18 @@ export const Hero: React.FC = () => {
         </h1>
       </div>
 
-      {/* Portfolio Link */}
-      <div className="absolute top-6 right-6 md:top-8 md:right-8 z-20">
+      {/* Top Right Controls */}
+      <div className="absolute top-6 right-6 md:top-8 md:right-8 z-20 flex items-center gap-6">
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="text-white/80 hover:text-white transition-colors duration-300 focus:outline-none"
+          aria-label="Toggle Dark Mode"
+        >
+          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+        </button>
+
+        {/* Portfolio Link */}
         <a
           href="https://mwabonje.carrd.co/"
           target="_blank"
