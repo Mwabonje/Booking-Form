@@ -10,6 +10,7 @@ export interface BookingFormData {
   date: string;
   preferredContact: string;
   message: string;
+  budget: string;
 }
 
 export enum SubjectOption {
@@ -33,4 +34,5 @@ export interface FormErrors {
   date?: string;
   preferredContact?: string;
   message?: string;
+  budget?: string;
 }

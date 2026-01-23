@@ -14,7 +14,8 @@ const INITIAL_DATA: BookingFormData = {
   typeOfShoot: '',
   date: '',
   preferredContact: '',
-  message: ''
+  message: '',
+  budget: ''
 };
 
 export const BookingForm: React.FC = () => {
@@ -40,7 +41,7 @@ export const BookingForm: React.FC = () => {
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email format";
     if (formData.email !== formData.confirmEmail) newErrors.confirmEmail = "Emails do not match";
-    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+    if (!formData.phone.trim()) newErrors.phone = "Whatsapp contact is required";
     if (!formData.subject) newErrors.subject = "Please select a subject";
     
     // Only validate conditional fields if subject is selected
@@ -210,10 +211,10 @@ export const BookingForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Phone Section */}
+        {/* Whatsapp Contact Section */}
         <div className="space-y-2 pt-4">
           <label className="block text-sm font-medium text-gray-900 dark:text-gray-300">
-            Phone <span className="text-red-500 text-xs ml-1">(Required)</span>
+            Whatsapp Contact <span className="text-red-500 text-xs ml-1">(Required)</span>
           </label>
           <div>
             <input
@@ -295,6 +296,23 @@ export const BookingForm: React.FC = () => {
               {errors.typeOfShoot && <span className="text-red-500 text-xs mt-1 block">{errors.typeOfShoot}</span>}
             </div>
 
+            {/* Budget Section */}
+            <div className="space-y-2 pt-4">
+               <label className="block text-sm font-medium text-gray-900 dark:text-gray-300">
+                Estimated Budget <span className="text-gray-500 dark:text-gray-500 text-xs ml-1 font-light">(Optional)</span>
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                   className="w-full border-b border-gray-400 dark:border-neutral-700 focus:border-black dark:focus:border-white outline-none py-2 bg-transparent text-gray-900 dark:text-gray-100 transition-colors"
+                   placeholder="e.g. $500 - $1000"
+                />
+              </div>
+            </div>
+
             {/* Date Selection */}
             <div className="space-y-3 pt-4">
               <label className="block text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -320,7 +338,7 @@ export const BookingForm: React.FC = () => {
                   Preferred Method Of Contact <span className="text-red-500 text-xs ml-1">(Required)</span>
                 </label>
                 <div className="space-y-2">
-                  {['Email', 'Phone'].map((option) => (
+                  {['Email', 'Whatsapp'].map((option) => (
                     <label key={option} className="flex items-center space-x-3 cursor-pointer group">
                       <input
                         type="radio"
