@@ -5,8 +5,9 @@ export const Hero: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    // On mount, check local storage or system preference
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // On mount, check local storage. Default to light mode unless 'dark' is explicitly saved.
+    // We intentionally ignore window.matchMedia('(prefers-color-scheme: dark)') to make Light the default.
+    if (localStorage.theme === 'dark') {
       setTheme('dark');
       document.documentElement.classList.add('dark');
     } else {
