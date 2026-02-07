@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Loader2, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Loader2, Send, AlertCircle, CheckCircle2, Check } from 'lucide-react';
 import { BookingFormData, FormErrors, SubjectOption } from '../types';
 import { refineMessageWithGemini } from '../services/geminiService';
 
@@ -294,19 +294,31 @@ export const BookingForm: React.FC = () => {
                 Type of Shoot <span className="text-red-500 text-xs ml-1">(Required - Select at least one)</span>
               </label>
               <div className="space-y-2">
-                {['Photography', 'Videography', 'Drone Services'].map((option) => (
-                  <label key={option} className="flex items-center space-x-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      name="typeOfShoot"
-                      value={option}
-                      checked={formData.typeOfShoot.includes(option)}
-                      onChange={handleCheckboxChange}
-                      className="w-5 h-5 border-gray-300 rounded text-brand-blue focus:ring-brand-blue focus:ring-offset-0"
-                    />
-                    <span className="text-gray-700 dark:text-gray-300 font-light group-hover:text-black dark:group-hover:text-white transition-colors">{option}</span>
-                  </label>
-                ))}
+                {['Photography', 'Videography', 'Drone Services'].map((option) => {
+                  const isChecked = formData.typeOfShoot.includes(option);
+                  return (
+                    <label key={option} className="flex items-center space-x-3 cursor-pointer group">
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          name="typeOfShoot"
+                          value={option}
+                          checked={isChecked}
+                          onChange={handleCheckboxChange}
+                          className="sr-only" 
+                        />
+                        <div className={`w-5 h-5 border rounded-full flex items-center justify-center transition-all duration-200 ${
+                          isChecked 
+                            ? 'bg-brand-blue border-brand-blue' 
+                            : 'border-gray-400 dark:border-neutral-600 bg-transparent group-hover:border-brand-blue'
+                        }`}>
+                           <Check size={12} className={`text-white transition-opacity duration-200 ${isChecked ? 'opacity-100' : 'opacity-0'}`} strokeWidth={3} />
+                        </div>
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300 font-light group-hover:text-black dark:group-hover:text-white transition-colors">{option}</span>
+                    </label>
+                  );
+                })}
               </div>
               {errors.typeOfShoot && <span className="text-red-500 text-xs mt-1 block">{errors.typeOfShoot}</span>}
             </div>
