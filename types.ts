@@ -6,7 +6,7 @@ export interface BookingFormData {
   phone: string;
   socialHandle: string;
   subject: string;
-  typeOfShoot: string;
+  typeOfShoot: string[];
   date: string;
   preferredContact: string;
   message: string;

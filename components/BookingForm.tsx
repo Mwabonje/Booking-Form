@@ -11,7 +11,7 @@ const INITIAL_DATA: BookingFormData = {
   phone: '',
   socialHandle: '',
   subject: '',
-  typeOfShoot: '',
+  typeOfShoot: [],
   date: '',
   preferredContact: '',
   message: '',
@@ -34,6 +34,21 @@ export const BookingForm: React.FC = () => {
     }
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setFormData(prev => {
+      const current = prev.typeOfShoot;
+      const updated = checked 
+        ? [...current, value]
+        : current.filter(item => item !== value);
+      return { ...prev, typeOfShoot: updated };
+    });
+    
+    if (errors.typeOfShoot) {
+      setErrors(prev => ({ ...prev, typeOfShoot: undefined }));
+    }
+  };
+
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
@@ -46,7 +61,7 @@ export const BookingForm: React.FC = () => {
     
     // Only validate conditional fields if subject is selected
     if (formData.subject) {
-      if (!formData.typeOfShoot) newErrors.typeOfShoot = "Please select a type of shoot";
+      if (formData.typeOfShoot.length === 0) newErrors.typeOfShoot = "Please select at least one type of shoot";
       
       if (!formData.date) {
         newErrors.date = "Please select a preferred date";
@@ -276,18 +291,18 @@ export const BookingForm: React.FC = () => {
             {/* Type of Shoot */}
             <div className="space-y-3 pt-4">
               <label className="block text-sm font-medium text-gray-900 dark:text-gray-300">
-                Type of Shoot <span className="text-red-500 text-xs ml-1">(Required)</span>
+                Type of Shoot <span className="text-red-500 text-xs ml-1">(Required - Select at least one)</span>
               </label>
               <div className="space-y-2">
-                {['Videography', 'Photography', 'Drone Services', 'Both'].map((option) => (
+                {['Photography', 'Videography', 'Drone Services'].map((option) => (
                   <label key={option} className="flex items-center space-x-3 cursor-pointer group">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="typeOfShoot"
                       value={option}
-                      checked={formData.typeOfShoot === option}
-                      onChange={handleChange}
-                      className="w-5 h-5 border-gray-300 text-brand-blue focus:ring-brand-blue focus:ring-offset-0"
+                      checked={formData.typeOfShoot.includes(option)}
+                      onChange={handleCheckboxChange}
+                      className="w-5 h-5 border-gray-300 rounded text-brand-blue focus:ring-brand-blue focus:ring-offset-0"
                     />
                     <span className="text-gray-700 dark:text-gray-300 font-light group-hover:text-black dark:group-hover:text-white transition-colors">{option}</span>
                   </label>
