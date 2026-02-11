@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Moon, Sun } from 'lucide-react';
+import { ArrowUpRight, Moon, Sun, Star } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -35,10 +35,28 @@ export const Hero: React.FC = () => {
         alt="Classic Camera Mamiya 645" 
         className="w-full h-full object-cover object-center grayscale opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
       />
-      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center">
         <h1 className="text-white font-signature text-7xl md:text-9xl opacity-95 selection:bg-transparent">
           Mwabonje
         </h1>
+        
+        {/* Rating Section */}
+        <div className="flex items-center gap-3 mt-1 animate-fade-in backdrop-blur-[2px] px-4 py-2 rounded-full">
+           <div className="flex gap-0.5">
+              {[1, 2, 3, 4].map((i) => (
+                <Star key={i} className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400" />
+              ))}
+              <div className="relative">
+                <Star className="w-4 h-4 md:w-5 md:h-5 text-gray-400/50" />
+                <div className="absolute top-0 left-0 overflow-hidden w-[80%]">
+                  <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400" />
+                </div>
+              </div>
+           </div>
+           <span className="text-white font-sans text-sm md:text-base font-medium tracking-wide drop-shadow-md">
+             4.8 (Google Reviews)
+           </span>
+        </div>
       </div>
 
       {/* Top Right Controls */}
