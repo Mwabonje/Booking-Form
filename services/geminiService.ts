@@ -4,7 +4,8 @@
  */
 export const refineMessageWithGemini = async (draftMessage: string, subject: string): Promise<string> => {
   try {
-    const response = await fetch('/api/refine-message', {
+    // Use Netlify Function path (works locally via server.ts and in prod via Netlify)
+    const response = await fetch('/.netlify/functions/refine-message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
