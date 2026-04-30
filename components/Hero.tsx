@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
 
         {/* Portfolio Link */}
         <a
-          href="https://mwabonje.carrd.co/"
+          href="https://progalleri.netlify.app/#/p/8e52e363-c24b-47b3-a823-ad0ad727125a"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-white/90 hover:text-white transition-all duration-300 group/link"
