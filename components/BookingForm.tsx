@@ -99,7 +99,7 @@ export const BookingForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch("https://formspree.io/f/mqeerdnk", {
+      const response = await fetch("/.netlify/functions/submit-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

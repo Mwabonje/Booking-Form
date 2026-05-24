@@ -34,7 +34,10 @@ app.use(cors({
     }
 
     // Check against specific allowed domains (production)
-    const allowedDomains = ['https://mwabonjebooking.netlify.app'];
+    const allowedDomains = [
+      'https://mwabonjebooking.netlify.app',
+      'https://mwabonje.netlify.app'
+    ];
     if (allowedDomains.indexOf(origin) !== -1) {
       return callback(null, true);
     }
@@ -116,6 +119,29 @@ app.post('/.netlify/functions/refine-message', async (req, res) => {
   } catch (error) {
     console.error("Error refining message with Gemini:", error);
     res.status(500).json({ error: 'Failed to refine message' });
+  }
+});
+
+app.post('/.netlify/functions/submit-form', async (req, res) => {
+  try {
+    const response = await fetch("https://formspree.io/f/mqeerdnk", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(req.body)
+    });
+
+    if (response.ok) {
+      res.json({ success: true });
+    } else {
+      const data = await response.json();
+      res.status(response.status).json(data);
+    }
+  } catch (error) {
+    console.error("Error submitting form locally:", error);
+    res.status(500).json({ error: 'Failed to submit form' });
   }
 });
 
