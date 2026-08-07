@@ -40,7 +40,7 @@ export const Reviews: React.FC = () => {
           </div>
         </div>
         <p className="text-lg font-medium text-gray-900 dark:text-white">
-          4.8/5 Average Rating
+          4.9/5 Average Rating
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Based on 50+ verified bookings
